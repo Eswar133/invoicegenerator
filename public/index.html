@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="max-w-4xl mx-auto p-8 bg-white rounded-lg shadow-md mt-8">
+        <h1 class="text-3xl font-bold text-teal-600 mb-6 text-center">Invoice Generator</h1>
+        <form action="/generate-invoice" method="POST" class="space-y-8">
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Seller Details</h2>
+                <input type="text" name="sellerName" placeholder="Seller Name" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="sellerAddress" placeholder="Seller Address" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="sellerCity" placeholder="Seller City" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="sellerState" placeholder="Seller State" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="sellerPincode" placeholder="Seller Pincode" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="sellerPAN" placeholder="Seller PAN No." class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="sellerGST" placeholder="Seller GST Registration No." class="w-full p-2 border border-teal-300 rounded" required>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Billing Details</h2>
+                <input type="text" name="billingName" placeholder="Billing Name" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="billingAddress" placeholder="Billing Address" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="billingCity" placeholder="Billing City" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="billingState" placeholder="Billing State" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="billingPincode" placeholder="Billing Pincode" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="billingStateCode" placeholder="Billing State/UT Code" class="w-full p-2 border border-teal-300 rounded" required>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Shipping Details</h2>
+                <input type="text" name="shippingName" placeholder="Shipping Name" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="shippingAddress" placeholder="Shipping Address" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="shippingCity" placeholder="Shipping City" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="shippingState" placeholder="Shipping State" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="shippingPincode" placeholder="Shipping Pincode" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="shippingStateCode" placeholder="Shipping State/UT Code" class="w-full p-2 border border-teal-300 rounded" required>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Order Details</h2>
+                <input type="text" name="orderNo" placeholder="Order No." class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="date" name="orderDate" class="w-full p-2 border border-teal-300 rounded" required>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Invoice Details</h2>
+                <input type="text" name="invoiceNo" placeholder="Invoice No." class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="date" name="invoiceDate" class="w-full p-2 border border-teal-300 rounded" required>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Place of Supply & Delivery</h2>
+                <input type="text" name="placeOfSupply" placeholder="Place of Supply" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="text" name="placeOfDelivery" placeholder="Place of Delivery" class="w-full p-2 border border-teal-300 rounded" required>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Reverse Charge</h2>
+                <select name="reverseCharge" class="w-full p-2 border border-teal-300 rounded" required>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="space-y-4">
+                <h2 class="text-2xl font-semibold text-teal-500">Item Details</h2>
+                +<div id="items">
+                    <div class="item space-y-2">
+                        <input type="text" name="items[0][description]" placeholder="Description" class="w-full p-2 border border-teal-300 rounded" required>
+                        <input type="number" name="items[0][unitPrice]" placeholder="Unit Price" class="w-full p-2 border border-teal-300 rounded" required>
+                        <input type="number" name="items[0][quantity]" placeholder="Quantity" class="w-full p-2 border border-teal-300 rounded" required>
+                        <div>
+                            <input type="number" name="items[0][discount]" placeholder="Discount" class="w-full p-2 border border-teal-300 rounded" required>
+                            <small class="text-gray-500">Enter a number like 0.2 (20%) or 2 (200%)</small>
+                        </div>
+                    </div>
+                </div>
+               
+                <button type="button" class="mt-4 bg-teal-500 hover:bg-teal-600 text-white p-2 rounded" onclick="addItem()">Add Item</button>
+            </div>
+
+            <div class="text-center">
+                <input type="submit" value="Generate Invoice" class="mt-6 bg-teal-600 hover:bg-teal-700 text-white p-4 rounded-lg cursor-pointer">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        let itemCount = 1;
+
+        function addItem() {
+            const itemsDiv = document.getElementById('items');
+            const newItem = document.createElement('div');
+            newItem.className = 'item space-y-2';
+            newItem.innerHTML = `
+                <input type="text" name="items[${itemCount}][description]" placeholder="Description" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="number" name="items[${itemCount}][unitPrice]" placeholder="Unit Price" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="number" name="items[${itemCount}][quantity]" placeholder="Quantity" class="w-full p-2 border border-teal-300 rounded" required>
+                <input type="number" name="items[${itemCount}][discount]" placeholder="Discount" class="w-full p-2 border border-teal-300 rounded" required>
+            `;
+            itemsDiv.appendChild(newItem);
+            itemCount++;
+        }
+    </script>
+</body>
+</html>

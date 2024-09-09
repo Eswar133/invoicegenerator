@@ -1,0 +1,19 @@
+{
+  "name": "invoice-generator",
+  "version": "1.0.0",
+  "description": "This is a simple invoice generator built using Node.js, Express, and PDFKit. The application allows users to input seller, billing, shipping, and item details through a web form, and it generates a PDF invoice.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.19.2",
+    "pdfkit": "^0.15.0"
+  },
+  "devDependencies": {}
+}
